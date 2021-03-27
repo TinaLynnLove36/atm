@@ -2,11 +2,15 @@ const account = require("./account")
 
 const prompt = require('prompt-sync')();
 
+
+module.exports.validatePin = validatePin;
+
 function validatePin() {
    console.log('Please enter your pin.');
     let userPin = prompt();
     if (account.pin === userPin) {
-        userMenu(getBalance, deposit, withdraw);
+        const userMenu = require("./index").userMenu;
+ 
     } else {
         console.log(`Incorrect pin. Try again`);
         validatePin();
@@ -14,42 +18,49 @@ function validatePin() {
 }
 validatePin();
 
+
 function getBalance() {
 console.log(`Your balance is ${account.balance}`);
 return account.balance;
 }
-getBalance();
 
-function deposit(userDeposit) {
-  account.balance += userDeposit 
-  return account.balance;
+
+
+function deposit() {
+    var userDeposit = console.log('How much would you like to deposit?');
+    var makeDeposit = parseInt(prompt());
+    if (isNaN(makeDeposit) || makeDeposit === '') {
+        console.log('Error: please enter a number!');
+        deposit();
+    } else {
+        account.balance += makeDeposit;
+        getBalance();
+    }
+
 }
 
-deposit(500);
 
-getBalance();
 
-function withdraw(userWithdraw) {
-    account.balance -= userWithdraw
-    return account.balance;
+
+
+
+function withdraw() {
+    var userDeposit = console.log('How much would you like to withdraw?');
+    var makeWithdrawal = parseInt(prompt());
+    if (isNaN(makeWithdrawal) || makeWithdrawal === '') {
+        console.log('Error: please enter a number!');
+        withdraw();
+    } else {
+    account.balance -= makeWithdrawal;
+    getBalance();
+}
 }
 
-withdraw(1000);
-
-getBalance();
 
 
- 
-module.exports.validate = validatePin;
- 
+
+module.exports.getBalance = getBalance;
+module.exports.deposit = deposit;
+module.exports.withdraw = withdraw;
 
  
-
-/* module.exports = {
-    validatePin: validatePin,
-    getBalance: getBalance,
-    deposit: deposit,
-    withdraw: withdraw,
-    
-
-} */
