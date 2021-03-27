@@ -2,6 +2,18 @@ const account = require("./account")
 
 const prompt = require('prompt-sync')();
 
+function validatePin() {
+   console.log('Please enter your pin.');
+    let userPin = prompt();
+    if (account.pin === userPin) {
+        userMenu(getBalance, deposit, withdraw);
+    } else {
+        console.log(`Incorrect pin. Try again`);
+        validatePin();
+    }
+}
+validatePin();
+
 function getBalance() {
 console.log(`Your balance is ${account.balance}`);
 return account.balance;
@@ -25,40 +37,19 @@ function withdraw(userWithdraw) {
 withdraw(1000);
 
 getBalance();
-/* 
-function userValidation() {
-    var name, pinNumber;
-  console.log("Welcome. Enter your name.");
-  let response = prompt();
-  console.log(`Your name is ${response}. Is that right?`);
-  let againResponse = prompt();
-    if (againResponse === 'yes') {
-        pinNumber = console.log('Enter your pin');
-        let pinResponse = prompt();
-        if (pinResponse = account.pin) {
-            return console.log('yes');
-        } else {
-            return false;
-        }
-    }   return;
- */
+
+
+ 
+module.exports.validate = validatePin;
  
 
+ 
 
-/* userValidation(); */
-
-/* function pinValidation(userPin) {
-userPin = console.log('Enter your pin');
-let pinReponse = prompt();
+/* module.exports = {
+    validatePin: validatePin,
+    getBalance: getBalance,
+    deposit: deposit,
+    withdraw: withdraw,
+    
 
 } */
- 
-
-
-
-
-//const balance = 5000;
-
-/* module.exports.userValidate = userValidation; */
- 
-
